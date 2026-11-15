@@ -26,3 +26,414 @@ body {
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
+
+.campus-app {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #f6f8ff;
+}
+
+.campus-app .text-primary {
+    color: #233e91 !important;
+}
+
+.campus-app .btn-primary {
+    background-color: #233e91;
+    border-color: #233e91;
+}
+
+.campus-app .btn-outline-primary {
+    color: #233e91;
+    border-color: #d9e1f5;
+}
+
+.campus-app .card {
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.favorite-btn {
+    font-size: 1.4rem;
+    align-self: flex-start;
+}
+
+#categoryFilters button {
+    border-radius: 20px;
+    font-size: 0.75rem;
+}
+
+.campus-app {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: #f6f8ff;
+    position: relative;
+}
+
+.app-content {
+    padding: 24px 18px 110px;
+}
+
+.activity-card {
+    background: #ffffff;
+    border-radius: 18px;
+    border: none;
+    box-shadow: 0 4px 14px rgba(30, 57, 134, 0.08);
+}
+
+.activity-card .favorite-btn {
+    font-size: 1.3rem;
+    padding: 0;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    justify-content: space-around;
+    background: white;
+    border-top: 1px solid #e5eaf5;
+    padding: 12px 8px;
+    z-index: 100;
+}
+
+.bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    border: none;
+    background: transparent;
+    color: #8995ad;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.bottom-nav .nav-item span {
+    font-size: 0.7rem;
+}
+
+.bottom-nav .nav-item.active {
+    color: #233e91;
+    font-weight: 700;
+}
+
+.floating-add {
+    position: fixed;
+    bottom: 85px;
+    left: calc(50% + 160px);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    box-shadow: 0 5px 15px rgba(35, 62, 145, 0.25);
+    z-index: 99;
+}
+
+#activityForm .form-control,
+#activityForm .form-select {
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid #e2e7f2;
+}
+
+#activityForm .form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #34466b;
+}
+
+@media (max-width: 480px) {
+    .floating-add {
+        left: auto;
+        right: 20px;
+    }
+}
+
+
+.activity-banner {
+    height: 170px;
+    background: linear-gradient(
+        135deg,
+        #dce6ff,
+        #eef2ff
+    );
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.activity-banner span {
+    font-size: 4rem;
+}
+
+#activityDetails .card {
+    border-radius: 20px;
+}
+
+#activityDetails .progress {
+    height: 10px;
+    border-radius: 20px;
+    background-color: #e8edf8;
+}
+
+#activityDetails .progress-bar {
+    background-color: #233e91;
+    border-radius: 20px;
+}
+
+#activityDetails .btn {
+    border-radius: 12px;
+    padding: 12px;
+}
+
+#backFromDetails {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+}
+
+
+
+/* =========================================
+   CAMPUSBREAKS — DESIGN SYSTEM
+========================================= */
+
+:root {
+    --campus-primary: #243e90;
+    --campus-primary-dark: #182c6d;
+    --campus-primary-light: #e8eeff;
+    --campus-background: #f6f8fd;
+    --campus-white: #ffffff;
+    --campus-text: #263656;
+    --campus-muted: #7a879e;
+    --campus-border: #e5eaf3;
+    --campus-success: #27895d;
+    --campus-danger: #dc4c65;
+    --campus-radius: 18px;
+}
+
+body {
+    background: #e9edf5;
+    color: var(--campus-text);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.campus-app {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--campus-background);
+    box-shadow: 0 0 35px rgba(20, 37, 79, 0.08);
+}
+
+.app-content {
+    padding: 26px 20px 125px;
+}
+
+/* TITRES */
+
+.campus-app h4,
+.campus-app h5,
+.campus-app h6 {
+    letter-spacing: -0.3px;
+}
+
+.campus-app .text-primary {
+    color: var(--campus-primary) !important;
+}
+
+/* BOUTONS */
+
+.campus-app .btn-primary {
+    background: var(--campus-primary);
+    border-color: var(--campus-primary);
+}
+
+.campus-app .btn-primary:hover {
+    background: var(--campus-primary-dark);
+    border-color: var(--campus-primary-dark);
+}
+
+.campus-app .btn-outline-primary {
+    color: var(--campus-primary);
+    border-color: #cbd6f4;
+}
+
+.campus-app .btn-outline-primary:hover {
+    background: var(--campus-primary);
+    border-color: var(--campus-primary);
+    color: white;
+}
+
+/* CARTES */
+
+.activity-card {
+    background: white;
+    border-radius: var(--campus-radius);
+    overflow: hidden;
+    border: 1px solid var(--campus-border);
+    box-shadow: 0 5px 20px rgba(25, 45, 96, 0.06);
+}
+
+.activity-image-container {
+    height: 165px;
+    background: linear-gradient(135deg, #dce7ff, #eff3ff);
+    position: relative;
+    overflow: hidden;
+}
+
+.activity-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.activity-category-badge {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--campus-primary);
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.activity-favorite {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.activity-card-content {
+    padding: 18px;
+}
+
+.activity-card-title {
+    color: var(--campus-primary);
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.activity-description {
+    font-size: 0.83rem;
+    color: var(--campus-muted);
+    line-height: 1.5;
+}
+
+.activity-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #64748b;
+    font-size: 0.8rem;
+    margin-top: 14px;
+}
+
+.activity-participants {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 13px;
+    border-top: 1px solid var(--campus-border);
+    font-size: 0.77rem;
+    color: #596985;
+}
+
+.availability-badge {
+    background: #e5f6ed;
+    color: var(--campus-success);
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* FILTRES */
+
+#categoryFilters {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+}
+
+#categoryFilters::-webkit-scrollbar {
+    display: none;
+}
+
+#categoryFilters button {
+    flex-shrink: 0;
+    white-space: nowrap;
+    border-radius: 22px;
+    padding: 8px 15px;
+}
+
+/* FORMULAIRE */
+
+#activityForm .form-control,
+#activityForm .form-select {
+    border: 1px solid var(--campus-border);
+    border-radius: 12px;
+    background: white;
+    padding: 12px;
+}
+
+#activityForm .form-control:focus,
+#activityForm .form-select:focus {
+    border-color: var(--campus-primary);
+    box-shadow: 0 0 0 3px rgba(36, 62, 144, 0.10);
+}
+
+/* NAVIGATION */
+
+.bottom-nav {
+    box-shadow: 0 -4px 18px rgba(20, 40, 80, 0.05);
+}
+
+.bottom-nav .nav-item.active {
+    color: var(--campus-primary);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 480px) {
+    .app-content {
+        padding: 20px 16px 120px;
+    }
+
+    .activity-image-container {
+        height: 155px;
+    }
+}
+
+.activity-banner {
+    overflow: hidden;
+    padding: 0;
+}
+
+.activity-banner .activity-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
