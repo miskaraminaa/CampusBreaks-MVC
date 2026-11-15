@@ -10,16 +10,21 @@ class UpdateActivities extends Observer {
         this.view = view;
     }
 
-update(observable, object) {
-    this.view.renderActivityCount(
-        observable.getActivityCount()
-    );
-}
+    update(observable, object) {
+
+        // Actualiser les activités de l'accueil
+        this.view.renderActivities(
+            observable.getActivities()
+        );
+
+        // Actualiser les favoris et activités organisées
+        this.view.renderMyActivities(observable);
+    }
 }
 
 
 /* ==========================================
-   OBSERVER 2 : NAVIGATION / INFORMATIONS
+   OBSERVER 2 : COMPTEUR D'ACTIVITÉS
 ========================================== */
 
 class UpdateNavigation extends Observer {
@@ -30,8 +35,9 @@ class UpdateNavigation extends Observer {
     }
 
     update(observable, object) {
-        console.log(
-            "Nombre d'activités :",
+
+        // Actualiser le compteur dans l'interface
+        this.view.renderActivityCount(
             observable.getActivityCount()
         );
     }
@@ -51,6 +57,7 @@ class UpdateActivityDetails extends Observer {
 
     update(observable, object) {
 
+        // Aucune activité sélectionnée
         if (this.view.selectedActivityId === null) {
             return;
         }
@@ -59,6 +66,7 @@ class UpdateActivityDetails extends Observer {
             this.view.selectedActivityId
         );
 
+        // Actualiser les détails et les participants
         this.view.renderActivityDetails(
             activity,
             observable.currentUserId
@@ -78,8 +86,9 @@ class Controler {
         this.model = model;
         this.view = new View();
 
+
         /* ==================================
-           1. ENREGISTREMENT DES OBSERVERS
+           1. INITIALISATION DES OBSERVERS
         ================================== */
 
         this.updateActivities =
@@ -91,23 +100,28 @@ class Controler {
         this.updateActivityDetails =
             new UpdateActivityDetails(this.view);
 
+
+        // Enregistrer les observers auprès du modèle
         this.model.addObservers(this.updateActivities);
         this.model.addObservers(this.updateNavigation);
         this.model.addObservers(this.updateActivityDetails);
 
 
         /* ==================================
-           2. ACTIONS : NAVIGATION ET ACTIVITÉS
+           2. ACTIONS : NAVIGATION
         ================================== */
 
         this.view.div.addEventListener("click", event => {
 
-            // RETOUR DEPUIS LES DÉTAILS
+            // RETOUR DEPUIS LA PAGE DÉTAILS
 
             if (event.target.closest("#backFromDetails")) {
 
                 this.view.selectedActivityId = null;
-                this.view.showPage(this.view.previousPage);
+
+                this.view.showPage(
+                    this.view.previousPage
+                );
 
                 return;
             }
@@ -133,7 +147,7 @@ class Controler {
             }
 
 
-            // BOUTON FLOTTANT : CRÉER
+            // BOUTON FLOTTANT : CRÉER UNE ACTIVITÉ
 
             if (event.target.closest("#floatingAdd")) {
 
@@ -150,18 +164,24 @@ class Controler {
             if (event.target.closest("#favoritesTab")) {
 
                 this.view.currentTab = "favorites";
-                this.view.renderMyActivities(this.model);
+
+                this.view.renderMyActivities(
+                    this.model
+                );
 
                 return;
             }
 
 
-            // ONGLET ORGANISÉES
+            // ONGLET ACTIVITÉS ORGANISÉES
 
             if (event.target.closest("#organizedTab")) {
 
                 this.view.currentTab = "organized";
-                this.view.renderMyActivities(this.model);
+
+                this.view.renderMyActivities(
+                    this.model
+                );
 
                 return;
             }
@@ -189,6 +209,7 @@ class Controler {
 
                 if (!activity) return;
 
+                // Mémoriser la page précédente
                 this.view.previousPage =
                     this.view.currentPage;
 
@@ -209,12 +230,14 @@ class Controler {
 
             if (action === "join") {
 
-                const success = this.model.joinActivity(
-                    id,
-                    this.model.currentUserId
-                );
+                const success =
+                    this.model.joinActivity(
+                        id,
+                        this.model.currentUserId
+                    );
 
                 if (!success) {
+
                     alert(
                         "Impossible de rejoindre cette activité."
                     );
@@ -228,12 +251,14 @@ class Controler {
 
             if (action === "leave") {
 
-                const success = this.model.leaveActivity(
-                    id,
-                    this.model.currentUserId
-                );
+                const success =
+                    this.model.leaveActivity(
+                        id,
+                        this.model.currentUserId
+                    );
 
                 if (!success) {
+
                     alert(
                         "Impossible de quitter cette activité."
                     );
@@ -268,7 +293,11 @@ class Controler {
                     return;
                 }
 
-                if (confirm("Supprimer cette activité ?")) {
+                const confirmation = confirm(
+                    "Voulez-vous vraiment supprimer cette activité ?"
+                );
+
+                if (confirmation) {
 
                     this.model.deleteActivity(id);
                 }
@@ -294,7 +323,10 @@ class Controler {
 
                 this.view.selectedActivityId = null;
 
+                // Préremplir le formulaire
                 this.view.fillForm(activity);
+
+                // Afficher le formulaire
                 this.view.showPage("create");
 
                 return;
@@ -304,7 +336,7 @@ class Controler {
 
 
         /* ==================================
-           4. ACTIONS : FILTRAGE DES ACTIVITÉS
+           4. ACTIONS : FILTRAGE
         ================================== */
 
         this.view.categoryFilters.addEventListener(
@@ -316,11 +348,14 @@ class Controler {
 
                 if (!button) return;
 
+                // Catégorie sélectionnée
                 this.view.currentCategory =
                     button.dataset.category;
 
+                // Actualiser les boutons de filtre
                 this.view.renderFilters();
 
+                // Actualiser les activités affichées
                 this.view.renderActivities(
                     this.model.getActivities()
                 );
@@ -338,25 +373,30 @@ class Controler {
 
                 event.preventDefault();
 
+                // Récupérer les données du formulaire
                 const data = this.view.getFormData();
 
+
+                // Validation des données
                 if (
                     !data.title ||
                     !data.location ||
                     !data.description ||
+                    !data.date ||
+                    !data.time ||
                     !Number.isInteger(data.maxParticipants) ||
                     data.maxParticipants < 1
                 ) {
 
                     alert(
-                        "Veuillez remplir correctement le formulaire."
+                        "Veuillez remplir correctement tous les champs."
                     );
 
                     return;
                 }
 
 
-                // MODIFICATION
+                // MODIFIER UNE ACTIVITÉ EXISTANTE
 
                 if (this.view.editingId !== null) {
 
@@ -373,6 +413,20 @@ class Controler {
                         return;
                     }
 
+                    // Empêcher de réduire la capacité
+                    // sous le nombre de participants
+                    if (
+                        data.maxParticipants <
+                        existing.participants.length
+                    ) {
+
+                        alert(
+                            "La capacité ne peut pas être inférieure au nombre de participants actuels."
+                        );
+
+                        return;
+                    }
+
                     this.model.updateActivity(
                         this.view.editingId,
                         data
@@ -380,7 +434,7 @@ class Controler {
 
                 } else {
 
-                    // CRÉATION
+                    // CRÉER UNE NOUVELLE ACTIVITÉ
 
                     this.model.addActivity({
 
@@ -399,37 +453,43 @@ class Controler {
                 }
 
 
-                // RETOUR À MES ACTIVITÉS
-
+                // Réinitialiser le formulaire
                 this.view.resetForm();
 
                 this.view.selectedActivityId = null;
 
+                // Afficher les activités organisées
                 this.view.currentTab = "organized";
 
                 this.view.showPage("myActivities");
 
-                this.view.renderMyActivities(this.model);
+                this.view.renderMyActivities(
+                    this.model
+                );
             }
         );
 
 
         /* ==================================
-           6. INITIALISATION
+           6. INITIALISATION DE L'INTERFACE
         ================================== */
 
+        // Afficher les filtres
         this.view.renderFilters();
 
+        // Afficher les activités
         this.updateActivities.update(
             this.model,
             null
         );
 
+        // Afficher le compteur
         this.updateNavigation.update(
             this.model,
             null
         );
 
+        // Page initiale
         this.view.showPage("home");
     }
 }
